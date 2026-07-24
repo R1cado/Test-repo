@@ -1,0 +1,112 @@
+<!--Aktions-Badges auf ausgewählten Produkten nicht-->
+
+<script>
+  var allContainers = document.querySelectorAll(".products-box");
+  var reiseapoProducts = ["orthomol pro 6", "orthomol nemuri night"];
+
+  for (var i = 0; i < allContainers.length; i++) {
+    var headline = allContainers[i].querySelector("h3");
+    var text = headline?.innerText;
+
+    if (text) {
+      text = text.trim();
+
+      /*
+if (text === "Orthomol Hair Intense") {
+allContainers[i].classList.add("bestseller-beauty-hair-pov");
+}
+*/
+
+      if (text === "Orthomol chondroplus") {
+        allContainers[i].classList.add("bestseller-chondro-pov");
+      }
+
+      if (reiseapoProducts.includes(text.toLowerCase())) {
+        allContainers[i].classList.add("bestseller-reiseapo-pov");
+      }
+
+      if (text.toLowerCase() === "orthomol neuro") {
+        allContainers[i].classList.add("bestseller-reiseapo-pov");
+        allContainers[i].dataset.badgeText = "+ Gratis Packung";
+
+        var productLink = headline.querySelector("a");
+        if (productLink) {
+          productLink.setAttribute(
+            "href",
+            "https://www.orthomol.com/de-de/produkte/nerven/orthomol-neuro?form=kapseln&size=90er+%2B+15er+gratis",
+          );
+        }
+      }
+
+      if (text.toLowerCase() === "orthomol immun") {
+        allContainers[i].classList.add("bestseller-immun-pov");
+        allContainers[i].dataset.badgeText = "Spare 20%";
+      }
+    }
+  }
+
+  const targetContainers = document.querySelectorAll(
+    ".bestseller-beauty-hair-pov, .bestseller-chondro-pov, .bestseller-reiseapo-pov, .bestseller-immun-pov",
+  );
+
+  targetContainers.forEach(function (targetContainer) {
+    let badge = targetContainer.querySelector(".Bestseller");
+
+    if (!badge) {
+      badge = document.createElement("div");
+      badge.className = "Bestseller";
+
+      const textSpan = document.createElement("span");
+      textSpan.className = "bestseller-text";
+      textSpan.textContent = targetContainer.dataset.badgeText || "Spare 20%";
+
+      badge.appendChild(textSpan);
+      targetContainer.prepend(badge);
+    }
+  });
+</script>
+
+<style>
+  .bestseller-beauty-hair-pov,
+  .bestseller-chondro-pov,
+  .bestseller-reiseapo-pov,
+  .bestseller-immun-pov {
+    position: relative;
+  }
+
+  .bestseller-beauty-hair-pov .Bestseller,
+  .bestseller-chondro-pov .Bestseller,
+  .bestseller-reiseapo-pov .Bestseller,
+  .bestseller-immun-pov .Bestseller {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    z-index: 3;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    max-width: max-content;
+
+    background-color: #b70832;
+    color: #fff;
+    border-radius: 999px;
+    padding: 6px 6px;
+    margin: 0;
+
+    line-height: 1;
+    white-space: nowrap;
+    box-sizing: border-box;
+  }
+
+  .bestseller-beauty-hair-pov .bestseller-text,
+  .bestseller-chondro-pov .bestseller-text,
+  .bestseller-reiseapo-pov .bestseller-text,
+  .bestseller-immun-pov .bestseller-text {
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+  }
+</style>
